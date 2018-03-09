@@ -1,3 +1,4 @@
+/* globals beforeEach, describe, it */
 import assert from 'assert';
 import { DockingManager } from '../DockingManager';
 
