@@ -318,21 +318,28 @@ const DockableWindow = (function () {
     };
 
     DockableWindowConstructor.prototype.joinDockingGroup = function (snappedPartnerWindow) {
-        if (this.group || !this.dockableToOthers || !snappedPartnerWindow.acceptDockingConnection) {
+        if (!this.dockableToOthers || !snappedPartnerWindow.acceptDockingConnection) {
             return;
         }
 
         if (snappedPartnerWindow.group) {
+            if (this.group) {
+                // as we do not currently allow group to group docking, short-circuit out
+                // otherwise we would need to do mergeGroup here
+                // e.g. if we inserted a window between 2 groups to 'join' them
+                return;
+            }
+
             for (let i = 0; i < snappedPartnerWindow.group.children.length; i++) {
                 if (intersect(this, snappedPartnerWindow.group.children[i])) {
                     return;
                 }
             }
-        }
-
-        if (this.group && !snappedPartnerWindow.group) {
-            snappedPartnerWindow.joinDockingGroup(this);
-            return;
+        } else {
+            if (this.group) {
+                snappedPartnerWindow.joinDockingGroup(this);
+                return;
+            }
         }
 
         // openfin operations: frame and grouping
