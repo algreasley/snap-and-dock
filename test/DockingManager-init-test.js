@@ -1,6 +1,6 @@
 /* globals beforeEach, describe, it */
 import assert from 'assert';
-import { DockingManager } from '../DockingManager';
+import { DockingManager } from '../lib/DockingManager';
 
 describe('DockingManager', function() {
     let dockingManager;
@@ -10,7 +10,6 @@ describe('DockingManager', function() {
     });
 
     describe('init', function() {
-
         describe('full', function() {
             beforeEach(() => {
                 dockingManager.init({

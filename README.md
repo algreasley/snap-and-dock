@@ -30,22 +30,18 @@ The intention of this repo is to provide developers a general (yet uniform) appr
 ## To run locally
 
 * Run ```npm install```
-<br>(this will give you http-server amongst other things)
-
-* If you do not have the OpenFin CLI installer, run ```npm install -g openfin-cli```
+<br>(this will give you the OpenFin CLI and http-server amongst other things)
 
 * Run a local web server with ```npm start```
 
 ### .. using runtime 9.x+ (chromium 61+)
 
-* Run ```openfin -c local-es6.json -l```
+* Run ```npm run launch-es6```
 
 ### .. using runtime 8.x or less
 
-* Run ```npm run build```
+* Run ```npm run launch```
 <br>(this will create a bundled js containing the Docking.js and modules)
-
-* Run ```openfin -c local-es6.json -l```
 
 # To Test
 
@@ -56,7 +52,7 @@ The intention of this repo is to provide developers a general (yet uniform) appr
 
 ## From Main Window
 
-1. Add DockingManager.js in your project
+1. Add the contents of the lib folder into your project
 2. Create new instance of DockingManager, like ```const dockingManager = new DockingManager();```
 3. Register instances of Openfin Windows (fin.desktop.Window) with DockingManager: ```dockingManager.register(fin.desktop.Window.getCurrent());```
 4. If you want a window to not dock to others, but only others dock to it you can pass false as the second argument of dockingManager.register:
