@@ -1,13 +1,13 @@
 /* globals fin, localStorage, window, document, screen, console */
 /* eslint-disable no-console */
-import { DockingManager, GroupEventReason, GroupEventMemberOf } from './DockingManager.js';
+import {DockingManager} from './lib/DockingManager.js';
+import {GroupEventMemberOf, GroupEventReason} from "./lib/OpenFinWrapper.js";
 
 /**
  * Created by haseebriaz on 03/03/15.
  */
 
 function onGroupChanged(groupEvent) {
-
     // leaving is simple ... if member of 'nothing', then this window is leaving
     if (groupEvent.memberOf === GroupEventMemberOf.NOTHING) {
         console.log('group-changed event: ' + groupEvent.name + ' left group');
@@ -28,7 +28,6 @@ function onGroupChanged(groupEvent) {
 }
 
 function createAndRegister(windowNameSuffix) {
-
     const windowOptions = {
         name: `child${windowNameSuffix}`,
         url: 'childWindow.html',
@@ -55,7 +54,6 @@ function createAndRegister(windowNameSuffix) {
 }
 
 function onOpenFinReady() {
-
     const dockingManager = new DockingManager();
     // Still works: var dockingManager = DockingManager.getInstance();
 

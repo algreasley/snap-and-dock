@@ -1,3 +1,4 @@
+/* globals global */
 
 global.window = {
     document: {
@@ -7,6 +8,9 @@ global.window = {
 
 global.fin = {
     desktop: {
+        Application: {
+            getCurrent: () => ({ uuid: 'temp'})
+        },
         System: {
             getMonitorInfo: getMonitorInfoStub
         }
