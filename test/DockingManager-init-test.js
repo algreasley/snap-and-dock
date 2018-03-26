@@ -1,18 +1,14 @@
 /* globals beforeEach, describe, it */
 import assert from 'assert';
-import { DockingManager } from '../lib/DockingManager';
+import DockingManager from '../lib/DockingManager.js';
 
-describe('DockingManager', function() {
+describe('DockingManager', () => {
     let dockingManager;
 
-    beforeEach(() => {
-        dockingManager = new DockingManager();
-    });
-
-    describe('init', function() {
-        describe('full', function() {
+    describe('init', () => {
+        describe('full', () => {
             beforeEach(() => {
-                dockingManager.init({
+                dockingManager = new DockingManager({
                     spacing: 25,
                     range: 35,
                     undockOffsetX: 5,
@@ -20,7 +16,7 @@ describe('DockingManager', function() {
                 });
             });
 
-            it('should set initial values correctly', function() {
+            it('should set initial values correctly', () => {
                 assert.equal(dockingManager.spacing, 25);
                 assert.equal(dockingManager.range, 35);
                 assert.equal(dockingManager.undockOffsetX, 5);
@@ -28,15 +24,15 @@ describe('DockingManager', function() {
             });
         });
 
-        describe('partial', function() {
+        describe('partial', () => {
             beforeEach(() => {
-                dockingManager.init({
+                dockingManager = new DockingManager({
                     spacing: 20,
                     range: 30
                 });
             });
 
-            it('should set initial values correctly', function() {
+            it('should set initial values correctly', () => {
                 assert.equal(dockingManager.spacing, 20);
                 assert.equal(dockingManager.range, 30);
                 assert.equal(dockingManager.undockOffsetX, 0);
@@ -44,15 +40,15 @@ describe('DockingManager', function() {
             });
         });
 
-        describe('invalid', function() {
+        describe('invalid', () => {
             beforeEach(() => {
-                dockingManager.init({
+                dockingManager = new DockingManager({
                     spacing: 'BIG',
                     range: -5
                 });
             });
 
-            it('should set initial values correctly', function() {
+            it('should set initial values correctly', () => {
                 assert.equal(dockingManager.spacing, 5);
                 assert.equal(dockingManager.range, 40);
                 assert.equal(dockingManager.undockOffsetX, 0);

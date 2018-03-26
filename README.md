@@ -53,13 +53,13 @@ The intention of this repo is to provide developers a general (yet uniform) appr
 ## From Main Window
 
 1. Add the contents of the lib folder into your project
-2. Import the DockingManager class (no longer a global) ```import {DockingManager} from './lib/DockingManager.js';```
-3. Create new instance of DockingManager, like ```const dockingManager = new DockingManager();```
+2. Import the DockingManager class (no longer a global) ```import DockingManager from './lib/DockingManager.js';```
+3. Create a single instance of DockingManager, like ```const dockingManager = new DockingManager();```
 4. Register instances of Openfin Windows (fin.desktop.Window) with DockingManager: ```dockingManager.register(fin.desktop.Window.getCurrent());```
 5. If you want a window to not dock to others, but only others dock to it you can pass false as the second argument of dockingManager.register:
 ```dockingManager.register(fin.desktop.Window.getCurrent(), false)```
-6. To adjust aspects like docked window separation, snapping range etc
-<br>```DockingManager.getInstance().init({ spacing: 0, range: 10 })```
+6. To adjust aspects like docked window separation, snapping range etc, instantiate the single DockingManager instance with properties as follows
+<br>```new DockingManager({ spacing: 0, range: 10 })```
 
 <br>See ```Docking.js``` in this project for a fuller example.
 

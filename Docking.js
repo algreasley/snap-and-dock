@@ -1,11 +1,29 @@
 /* globals fin, localStorage, window, document, screen, console */
 /* eslint-disable no-console */
-import {DockingManager} from './lib/DockingManager.js';
+import DockingManager from './lib/DockingManager.js';
 import {GroupEventMemberOf, GroupEventReason} from "./lib/OpenFinWrapper.js";
 
 /**
  * Created by haseebriaz on 03/03/15.
  */
+
+let dockingManager;
+
+function getDockingManager() {
+    // Apply any of the following options
+    // if you want to modify the docking parameters
+    const dockingOptions = {
+        // spacing: 0,
+        // range: 10,
+        // undockOffsetX: 15,
+        // undockOffsetY: 15
+    };
+
+    if (!dockingManager) {
+        dockingManager = new DockingManager(dockingOptions);
+    }
+    return dockingManager;
+}
 
 function onGroupChanged(groupEvent) {
     // leaving is simple ... if member of 'nothing', then this window is leaving
@@ -42,7 +60,7 @@ function createAndRegister(windowNameSuffix) {
     const openfinWindow = new fin.desktop.Window(
         windowOptions,
         function() {
-            DockingManager.getInstance().register(openfinWindow);
+            dockingManager.register(openfinWindow);
         }
     );
 
@@ -54,19 +72,7 @@ function createAndRegister(windowNameSuffix) {
 }
 
 function onOpenFinReady() {
-    const dockingManager = new DockingManager();
-    // Still works: var dockingManager = DockingManager.getInstance();
-
-    // Apply init() to the DockingManager singleton as below
-    // if you want to modify the docking parameters
-    //
-    // dockingManager.init({
-    //     spacing: 0,
-    //     range: 10,
-    //     undockOffsetX: 15,
-    //     undockOffsetY: 15
-    // });
-
+    const dockingManager = getDockingManager();
     dockingManager.register(fin.desktop.Window.getCurrent(), false);
 
     let counter = 0;
