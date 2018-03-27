@@ -1,26 +1,26 @@
 {
-  "devtools_port": 9090,
-  "startup_app": {
-    "uuid": "docking-manager-example",
-    "name": "Docking Manager (v9+)",
-    "url": "http://localhost:8888/index-es6.html",
-    "mainWindowOptions": {
-      "taskbarIcon": "http://localhost:8888/openfin.ico",
-      "autoShow": true,
-      "defaultWidth": 250,
-      "defaultHeight": 150,
-      "defaultTop": 200,
-      "defaultLeft": 200
+    "devtools_port": 9090,
+    "startup_app": {
+        "uuid": "docking-manager-example",
+        "name": "Docking Manager (v9+)",
+        "url": "http://localhost:8888/index-es6.html",
+        "mainWindowOptions": {
+            "taskbarIcon": "http://localhost:8888/openfin.ico",
+            "autoShow": true,
+            "defaultWidth": 250,
+            "defaultHeight": 150,
+            "defaultTop": 200,
+            "defaultLeft": 200
+        }
+    },
+    "runtime": {
+        "arguments": "--force-device-scale-factor=1",
+        "version": "9.61.29.24"
+    },
+    "shortcut": {
+        "company": "OpenFin",
+        "description": "docking-manager-example",
+        "icon": "http://openfin.github.io/snap-and-dock/openfin.ico",
+        "name": "docking-manager-example"
     }
-  },
-  "runtime": {
-    "arguments": "--force-device-scale-factor=1",
-    "version": "9.61.29.24"
-  },
-  "shortcut": {
-    "company": "OpenFin",
-    "description": "docking-manager-example",
-    "icon": "http://openfin.github.io/snap-and-dock/openfin.ico",
-    "name": "docking-manager-example"
-  }
 }
