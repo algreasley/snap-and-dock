@@ -13,6 +13,9 @@ global.fin = {
         },
         System: {
             getMonitorInfo: getMonitorInfoStub
+        },
+        Window: function() {
+            this.getInfo = () => {}
         }
     }
 };
