@@ -2,10 +2,10 @@
 import assert from 'assert';
 import { intersect } from '../lib/DockingUtil';
 
-describe('DockingUtil', () => {
-    describe('intersect', () => {
-        describe('when pairs of rectangles are tested', () => {
-            it('should correctly assess whether they overlap', () => {
+describe('DockingUtil', function() {
+    describe('intersect', function() {
+        describe('when pairs of rectangles are tested', function() {
+            it('should correctly assess whether they overlap', function() {
                 assert.ok(intersect(overlappingRect1, overlappingRect2));
             });
         });

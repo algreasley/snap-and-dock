@@ -15,7 +15,7 @@ global.fin = {
             getMonitorInfo: getMonitorInfoStub
         },
         Window: function() {
-            this.getInfo = () => {}
+            this.getOptions = () => {}
         }
     }
 };

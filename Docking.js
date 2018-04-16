@@ -13,10 +13,13 @@ function getDockingManager() {
     // Apply any of the following options
     // if you want to modify the docking parameters
     const dockingOptions = {
+        // range: 20,
         // spacing: 0,
-        // range: 10,
-        // undockOffsetX: 15,
-        // undockOffsetY: 15
+        // undockOffsetX: 25,
+        // undockOffsetY: 25,
+        // movingOpacity: 0.6,
+        // snappedMovingOpacity: 0.8,
+        // snappedTargetOpacity: 1
     };
 
     if (!dockingManager) {
