@@ -1,0 +1,48 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: azure;
+  font-family: Helvetica;
+}
+
+.titlebar {
+  -webkit-app-region: drag;
+  background-color: aqua;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.button {
+  margin: 0 5px;
+  -webkit-app-region: no-drag;
+}
+
+.close {
+  background-color: azure;
+  text-align: center;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.windowContent {
+  padding: 10px;
+  flex-grow: 1;
+  border: 2px solid aqua;
+}
+
+.hidden {
+  display: none;
+}

@@ -48,7 +48,7 @@ function onGroupChanged(groupEvent) {
 function createAndRegister(windowNameSuffix) {
     const windowOptions = {
         name: `child${windowNameSuffix}`,
-        url: 'childWindow.html',
+        url: 'child.html',
         defaultWidth: 200,
         defaultHeight: 150,
         defaultTop: (screen.availHeight - 200) / 2,

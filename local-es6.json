@@ -15,7 +15,7 @@
     },
     "runtime": {
         "arguments": "--force-device-scale-factor=1",
-        "version": "9.61.29.24"
+        "version": "9.61.31.25"
     },
     "shortcut": {
         "company": "OpenFin",
