@@ -57,6 +57,7 @@ function createAndRegister(windowNameSuffix) {
         defaultTop: (screen.availHeight - 200) / 2,
         defaultLeft: (screen.availWidth - 150) / 2,
         frame: false,
+        shadow: true,
         autoShow: true
     };
 
@@ -82,14 +83,14 @@ function onOpenFinReady() {
     document.getElementById('createWindows').onclick = () => { createAndRegister(++counter); };
 
     // convenience to restore up to 10 docked child windows from previous persistance
-    for (let tempCounter = 0; tempCounter < 10; tempCounter++) {
-        const DOCKING_MANAGER_NAMESPACE_PREFIX = 'dockingManager.';
-        const windowStorageKey = `${DOCKING_MANAGER_NAMESPACE_PREFIX}${fin.desktop.Application.getCurrent().uuid}.child${tempCounter}`;
-        if (localStorage.getItem(windowStorageKey)) {
-            createAndRegister(tempCounter);
-            counter = tempCounter;
-        }
-    }
+    // for (let tempCounter = 0; tempCounter < 10; tempCounter++) {
+    //     const DOCKING_MANAGER_NAMESPACE_PREFIX = 'dockingManager.';
+    //     const windowStorageKey = `${DOCKING_MANAGER_NAMESPACE_PREFIX}${fin.desktop.Application.getCurrent().uuid}.child${tempCounter}`;
+    //     if (localStorage.getItem(windowStorageKey)) {
+    //         createAndRegister(tempCounter);
+    //         counter = tempCounter;
+    //     }
+    // }
 
     fin.desktop.InterApplicationBus.subscribe('*', 'window-docked', function(message) {
         console.log('window-docked subscription: ' + message.windowName + ' joined group');
