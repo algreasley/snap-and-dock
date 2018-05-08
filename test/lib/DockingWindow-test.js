@@ -1,6 +1,6 @@
 /* globals beforeEach, describe, it */
 import assert from 'assert';
-import DockingWindow from '../lib/DockingWindow';
+import DockingWindow from '../../lib/DockingWindow';
 
 const DEFAULT_WINDOW_DOCKING_OPTIONS = {};
 

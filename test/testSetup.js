@@ -1,10 +1,8 @@
-/* globals global */
+/* globals global, FULLHD_WIDTH, FULLHD_HEIGHT, ERR_REQUEST_MONITOR_INFO */
+/* globals fin */
+import * as sinon from 'sinon';
 
-global.window = {
-    document: {
-        addEventListener: () => undefined
-    },
-};
+global.localStorage = {};
 
 global.fin = {
     desktop: {
@@ -12,21 +10,41 @@ global.fin = {
             getCurrent: () => ({ uuid: 'temp'})
         },
         System: {
-            getMonitorInfo: getMonitorInfoStub
+            getMonitorInfo: singleFullHDMonitorStub
         },
-        Window: function() {
-            this.getOptions = () => {}
+        Window: function(options) {
+            Object.assign(this, options);
+        },
+        InterApplicationBus: {
+            publish: () => undefined
         }
     }
 };
 
-function getMonitorInfoStub(successCallback) {
+global.FULLHD_WIDTH = 1920;
+global.FULLHD_HEIGHT = 1080;
+global.ERR_REQUEST_MONITOR_INFO = 'Something went wrong';
+
+global.setSingleFullHDMonitor = function() {
+    sinon.replace(fin.desktop.System, 'getMonitorInfo', singleFullHDMonitorStub);
+};
+global.setTripleFullHDMonitor = function() {
+    sinon.replace(fin.desktop.System, 'getMonitorInfo', tripleFullHDMonitorStub);
+};
+global.setErrorMonitor = function() {
+    sinon.replace(fin.desktop.System, 'getMonitorInfo', errorMonitorStub);
+};
+global.resetMonitors = function () {
+    sinon.restore();
+};
+
+function singleFullHDMonitorStub(successCallback) {
     successCallback({
         primaryMonitor: {
             availableRect: {
                 left: 0,
-                right: 1920,
-                bottom: 1080,
+                right: FULLHD_WIDTH,
+                bottom: FULLHD_HEIGHT,
                 top: 0
             }
         },
@@ -34,25 +52,37 @@ function getMonitorInfoStub(successCallback) {
     });
 }
 
-function getStubLocation(path) {
-    let target = global;
-    path.split('.').forEach(property => {
-        if (target[property]) {
-            target = target[property];
-        } else {
-            throw new Error('Bad property address', path);
-        }
+function tripleFullHDMonitorStub(callback) {
+    callback({
+        primaryMonitor: {
+            availableRect: {
+                left: 0,
+                right: FULLHD_WIDTH,
+                bottom: FULLHD_HEIGHT,
+                top: 0
+            }
+        },
+        nonPrimaryMonitors: [
+            {
+                availableRect: {
+                    left: -FULLHD_WIDTH,
+                    right: 0,
+                    bottom: FULLHD_HEIGHT,
+                    top: 0
+                }
+            },
+            {
+                availableRect: {
+                    left: FULLHD_WIDTH,
+                    right: FULLHD_WIDTH * 2,
+                    bottom: FULLHD_HEIGHT,
+                    top: 0
+                }
+            }
+        ]
     });
-    return target;
 }
 
-global.replaceStubOrValue = function(path, property, stubOrValue) {
-    const target = getStubLocation(path);
-    target[`${property}_SAFE`] = target[property];
-    target[property] = stubOrValue;
-};
-
-global.resetStubOrValue = function(path, property) {
-    const target = getStubLocation(path);
-    target[property] = target[`${property}_SAFE`];
-};
+function errorMonitorStub(successCallback, errorCallback) {
+    errorCallback(ERR_REQUEST_MONITOR_INFO);
+}

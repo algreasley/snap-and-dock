@@ -1,4 +1,4 @@
-/* globals fin, localStorage, window, document, screen, console */
+/* globals fin, window, document, screen, console */
 /* eslint-disable no-console */
 import DockingManager from './lib/DockingManager.js';
 import {GroupEventMemberOf, GroupEventReason} from "./lib/OpenFinWrapper.js";

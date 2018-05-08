@@ -2,7 +2,7 @@
     "devtools_port": 9090,
     "startup_app": {
         "uuid": "docking-manager-example",
-        "name": "Docking Manager (v9+)",
+        "name": "DockingMgr-v9",
         "url": "http://localhost:8888/index-es6.html",
         "mainWindowOptions": {
             "taskbarIcon": "http://localhost:8888/openfin.ico",
@@ -15,7 +15,7 @@
     },
     "runtime": {
         "arguments": "--force-device-scale-factor=1",
-        "version": "9.61.31.25"
+        "version": "9.61.31.45"
     },
     "shortcut": {
         "company": "OpenFin",
