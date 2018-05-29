@@ -4,32 +4,41 @@ import assert from 'assert';
 import DockingWindow from '../../lib/DockingWindow';
 import * as sinon from "sinon";
 
-const DEFAULT_WINDOW_DOCKING_OPTIONS = {};
+const FAKE_DOCKING_OPTIONS = {};
 
 describe('DockingWindow', function() {
     let dockingWindow;
-    let getOptionsStub;
-    let getBoundsFake, addEventListenerFake, disableFrameFake;
+    let getOptionsStub, getBoundsStub;
+    let addEventListenerFake, disableFrameFake, persistenceServiceRetrieveFake;
     let updateOptionsSpy;
+    const ORIG_OPACITY = 0.8;
 
     beforeEach(function () {
         getOptionsStub = sinon.stub();
+        getOptionsStub.callsArgWith(0, {
+            opacity: ORIG_OPACITY
+        });
         fin.desktop.Window.prototype.getOptions = getOptionsStub;
-        getBoundsFake = sinon.fake();
-        fin.desktop.Window.prototype.getBounds = getBoundsFake;
+        getBoundsStub = sinon.stub();
+        getBoundsStub.callsArgWith(0, {x: 0, y: 0, width: 100, height: 100});
+        fin.desktop.Window.prototype.getBounds = getBoundsStub;
         disableFrameFake = sinon.fake();
         fin.desktop.Window.prototype.disableFrame = disableFrameFake;
         addEventListenerFake = sinon.fake();
         fin.desktop.Window.prototype.addEventListener = addEventListenerFake;
         updateOptionsSpy = sinon.spy();
         fin.desktop.Window.prototype.updateOptions = updateOptionsSpy;
+        persistenceServiceRetrieveFake = sinon.fake.returns([]);
+        FAKE_DOCKING_OPTIONS.persistenceService = {
+            retrieveRelationshipsFor: persistenceServiceRetrieveFake
+        };
     });
 
     describe('getWindowByName', function() {
         let windows;
 
         beforeEach(function() {
-            dockingWindow = new DockingWindow({name: 'bob'}, DEFAULT_WINDOW_DOCKING_OPTIONS);
+            dockingWindow = new DockingWindow({name: 'bob'}, FAKE_DOCKING_OPTIONS);
             windows = [ dockingWindow ];
         });
 
@@ -40,14 +49,10 @@ describe('DockingWindow', function() {
     });
 
     describe('opacity', function() {
-        const ORIG_OPACITY = 0.8;
         const NEW_OPACITY = 0.4;
 
         beforeEach(function() {
-            getOptionsStub.callsArgWith(0, {
-                opacity: ORIG_OPACITY
-            });
-            dockingWindow = new DockingWindow({name: 'bob'}, DEFAULT_WINDOW_DOCKING_OPTIONS);
+            dockingWindow = new DockingWindow({name: 'bob'}, FAKE_DOCKING_OPTIONS);
         });
 
         describe('when the opacity value of a window is modified', function() {
