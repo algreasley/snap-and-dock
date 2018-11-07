@@ -4,7 +4,7 @@
   "description": "a small framework for snap-to and docking of openfin windows",
   "main": "Docking.js",
   "scripts": {
-    "build": "rollup Docking.js --o DockingManager-rolledup.js --f iife",
+    "build": "rollup -c rollup.config.js",
     "test": "mocha --require @babel/register --require @babel/polyfill ./test/testSetup.js ./test/**/*-test.js",
     "start": "http-server -c-1 -p 8888",
     "launch": "npm run build && openfin -c local.json -l",
@@ -22,16 +22,22 @@
   },
   "homepage": "https://github.com/openfin/snap-and-dock",
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/polyfill": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
-    "@babel/register": "7.0.0-beta.40",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "eslint": "4.19.1",
+    "express": "^4.16.4",
     "http-server": "0.11.1",
     "mocha": "5.1.1",
     "openfin-cli": "1.1.5",
     "rollup": "0.58.2",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "sinon": "5.0.6"
+  },
+  "dependencies": {
+    "openfin-layouts": "^0.9.2"
   }
 }

@@ -9,5 +9,26 @@
   <body>
   <div id="console"></div>
   <button id="createWindows">New child window</button>
+  <div>
+    <span>Download Test:</span>
+    <br>
+    <a href="https://www.adobe.com/support/products/enterprise/knowledgecenter/media/c4611_sample_explain.pdf">External PDF (x-dom)</a>
+    <br>
+    <a href="pdf-example-download.pdf">Local PDF (server download)</a>
+    <br>
+  </div>
+  <div>
+    <span>Spell Check test: </span>
+    <input prompt="Say something"/>
+  </div>
+  <div>
+    <span>Inline PDF test:</span>
+    <object data="pdf-example-direct.pdf"
+            type="application/pdf"
+            width="500px"
+            height="500px"
+            style="border: 1px solid red;">
+    </object>
+  </div>
   </body>
 </html>

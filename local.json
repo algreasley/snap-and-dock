@@ -4,6 +4,7 @@
         "uuid": "docking-manager-example",
         "name": "DockingMgr-v8",
         "url": "http://localhost:8888/index.html",
+        "plugins": true,
         "mainWindowOptions": {
             "taskbarIcon": "http://localhost:8888/openfin.ico",
             "autoShow": true,
@@ -14,8 +15,8 @@
         }
     },
     "runtime": {
-        "arguments": "--force-device-scale-factor=1",
-        "version": "8.56.30.55"
+        "arguments": "--v=1",
+        "version": "9.61.36.36"
     },
     "shortcut": {
         "company": "OpenFin",

@@ -3,6 +3,9 @@
 import DockingManager from './lib/DockingManager.js';
 import {GroupEventMemberOf, GroupEventReason} from "./lib/OpenFinWrapper.js";
 
+// import Layouts from './node_modules/openfin-layouts/dist/client/main.js';
+import * as Layouts from 'openfin-layouts';
+
 /**
  * Created by haseebriaz on 03/03/15.
  */
@@ -20,6 +23,7 @@ function getDockingManager() {
         // movingOpacity: 0.6,
         // snappedMovingOpacity: 0.8,
         // snappedTargetOpacity: 1
+        unregisterOnClose: false
     };
 
     if (!dockingManager) {
@@ -64,7 +68,8 @@ function createAndRegister(windowNameSuffix) {
     const openfinWindow = new fin.desktop.Window(
         windowOptions,
         function() {
-            dockingManager.register(openfinWindow);
+            console.warn('NOT REGISTERING, TO TEST LAYOUT SERVICE')
+            // dockingManager.register(openfinWindow);
         }
     );
 
@@ -75,12 +80,38 @@ function createAndRegister(windowNameSuffix) {
     openfinWindow.addEventListener('group-changed', onGroupChanged);
 }
 
+async function getLayout() {
+    console.warn('Getting layout ...');
+    const layout = await Layouts.generateLayout();
+    console.warn(layout);
+}
+
 function onOpenFinReady() {
-    const dockingManager = getDockingManager();
-    dockingManager.register(fin.desktop.Window.getCurrent(), false);
+    // const dockingManager = getDockingManager();
+    // dockingManager.register(fin.desktop.Window.getCurrent(), false);
+
+    fin.desktop.System.addEventListener("window-file-download-started", function (event) {
+        console.log("File download started", event);
+    });
+
+    fin.desktop.System.addEventListener("window-file-download-progress", function (event) {
+        console.log("File download progress", event);
+    });
+
+    fin.desktop.System.addEventListener("window-file-download-completed", function (event) {
+        console.log("File download done", event);
+        if (event.state === 'cancelled') {
+            console.warn("Download cancelled: ", event.originalFileName);
+        }
+        fin.desktop.System.launchExternalProcess({fileUuid: event.fileUuid})
+    });
+
+    Layouts.deregister();
 
     let counter = 0;
     document.getElementById('createWindows').onclick = () => { createAndRegister(++counter); };
+
+    document.getElementById('getLayout').onclick = getLayout;
 
     // convenience to restore up to 10 docked child windows from previous persistance
     // for (let tempCounter = 0; tempCounter < 10; tempCounter++) {
